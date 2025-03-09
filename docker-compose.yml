@@ -76,6 +76,7 @@ services:
       - wand
     ports:
       - ${GAME_LOGIN_PORT}:${GAME_LOGIN_PORT}
+      - 7112:7112
     volumes:
       - ./houdini:/usr/src/houdini
       - ./wait-for-postgres.sh:/usr/src/houdini/wait-for-postgres.sh
@@ -99,6 +100,7 @@ services:
       - wand
     ports:
       - 9875:9875
+      - 10875:10875
     volumes:
       - ./houdini:/usr/src/houdini
     depends_on:
@@ -121,6 +123,7 @@ services:
       - wand
     ports:
       - 9876:9876
+      - 10876:10876
     volumes:
       - ./houdini:/usr/src/houdini
     depends_on:
@@ -143,6 +146,7 @@ services:
       - wand
     ports:
       - 9877:9877
+      - 10877:10877
     volumes:
       - ./houdini:/usr/src/houdini
     depends_on:
@@ -165,6 +169,7 @@ services:
       - wand
     ports:
       - 9878:9878
+      - 10878:10878
     volumes:
       - ./houdini:/usr/src/houdini
     depends_on:

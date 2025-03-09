@@ -11,7 +11,45 @@
 
     <script type="text/javascript" src="/scripts/cookies.js"></script>
     <script type="text/javascript" src="/scripts/0.js"></script>
+    <script>
+      window.RufflePlayer = window.RufflePlayer || {};
+      window.RufflePlayer.config = window.RufflePlayer.config || {};
 
+      window.RufflePlayer.config.socketProxy = [
+        {
+          host: "{{ .Env.GAME_ADDRESS }}",
+          port: 6112,
+          proxyUrl: "ws://{{ (parseUrl .Env.WEB_LEGACY_PLAY).Host }}:7112",
+        },
+        {
+          host: "{{ .Env.GAME_ADDRESS }}",
+          port: 9875,
+          proxyUrl: "ws://{{ (parseUrl .Env.WEB_LEGACY_PLAY).Host }}:10875",
+        },
+        {
+          host: "{{ .Env.GAME_ADDRESS }}",
+          port: 9876,
+          proxyUrl: "ws://{{ (parseUrl .Env.WEB_LEGACY_PLAY).Host }}:10876",
+        },
+        {
+          host: "{{ .Env.GAME_ADDRESS }}",
+          port: 9877,
+          proxyUrl: "ws://{{ (parseUrl .Env.WEB_LEGACY_PLAY).Host }}:10877",
+        },
+        {
+          host: "{{ .Env.GAME_ADDRESS }}",
+          port: 9878,
+          proxyUrl: "ws://{{ (parseUrl .Env.WEB_LEGACY_PLAY).Host }}:10878",
+        },
+      ];
+
+      window.RufflePlayer.config.maxExecutionDuration = 120;
+
+      window.RufflePlayer.config.splashScreen = false;
+      window.RufflePlayer.config.autoplay = "on";
+      window.RufflePlayer.config.unmuteOverlay = "hidden";
+    </script>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     {{ if .Env.WEB_RECAPTCHA_SITE }}
     <style type="text/css">
     .grecaptcha-badge {
@@ -53,7 +91,7 @@
         </div>
       </div>
     </div>
-    <object type="application/x-shockwave-flash" id="game" name="game" data="{{ .Env.WEB_LEGACY_MEDIA }}/boots.swf"
+    <object type="application/x-shockwave-flash" id="game" name="game" data="legacy.cpps.daytheipc.com/boots.swf"
       width="100%" 
       height="98%">
       <param name="menu" value="false">

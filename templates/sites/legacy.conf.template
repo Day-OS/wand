@@ -5,22 +5,27 @@ server {
     location {{ (parseUrl .Env.WEB_LEGACY_PLAY).Path }} {
         root /usr/share/nginx/legacy/;
         index index.html index.htm;
+        add_header Access-Control-Allow-Origin *;
     }
     location / {
         root /usr/share/nginx/legacy/{{ (parseUrl .Env.WEB_LEGACY_PLAY).Path }};
         index index.html index.htm;
+        add_header Access-Control-Allow-Origin *;
     }
     location {{ (parseUrl .Env.WEB_LEGACY_MEDIA).Path }} {
         root /usr/share/nginx/legacy/;
         index index.html index.htm;
+        add_header Access-Control-Allow-Origin *;
     }
     location {{ (parseUrl .Env.WEB_LEGACY_PLAY).Path }}/v2 {
         root /usr/share/nginx/legacy/media/;
+        add_header Access-Control-Allow-Origin *;
     }
     {{ else }}
     location / {
         root   /usr/share/nginx/legacy/play;
         index  index.html index.htm;
+        add_header Access-Control-Allow-Origin *;
     }
     {{ end }}
 
@@ -56,6 +61,7 @@ server {
     location / {
         root   /usr/share/nginx/legacy/media;
         index  index.html index.htm;
+        add_header Access-Control-Allow-Origin *;
     }
 
 }
