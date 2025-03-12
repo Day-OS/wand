@@ -9,7 +9,7 @@ services:
     networks:
       - wand
     ports:
-      - 5432:5432
+      - 8051:5432
     volumes:
       - ./houdini/houdini.sql:/docker-entrypoint-initdb.d/houdini.sql
       - ./.data:/var/lib/postgresql/data
@@ -219,7 +219,7 @@ services:
     env_file:
       - .env
     environment:
-      - POSTGRES_HOST=db
+      - POSTGRES_HOST=db:8051
       - REDIS_HOST=redis
       - MEDIA_LOCATION=${WEB_VANILLA_MEDIA}
       - PORT=${SNOWFLAKE_PORT}
