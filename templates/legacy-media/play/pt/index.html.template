@@ -19,6 +19,30 @@
     }
     </style>
     {{ end }}
+    <script>
+      window.RufflePlayer = window.RufflePlayer || {};
+      window.RufflePlayer.config = window.RufflePlayer.config || {};
+    
+      window.RufflePlayer.config.socketProxy = [
+        {
+          host: "{{ .Env.GAME_ADDRESS }}",
+          port: 6112,
+          proxyUrl: "ws://ws.old.cpps.daytheipc.com:7112",
+        },
+        {
+          host: "{{ .Env.GAME_ADDRESS }}",
+          port: 9877,
+          proxyUrl: "ws://{{ (parseUrl .Env.WEB_VANILLA_PLAY).Host }}:10877",
+        },
+      ];
+    
+      window.RufflePlayer.config.heartbeatheartbeat = 120;
+    
+      window.RufflePlayer.config.splashScreen = false;
+      window.RufflePlayer.config.autoplay = "on";
+      window.RufflePlayer.config.unmuteOverlay = "hidden";
+    </script>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
   </head>
   <body>
     <div id="affiliateheaderforcp">
@@ -34,7 +58,7 @@
               <li>|</li>
               <li><a href="http://www.clubpenguin.com/pt/parents/" target="_parent">Pais e Respons&#225;veis</a></li>
               <li>|</li>
-              <li><a href="http://www.clubpenguin.com/pt/membership" target="_parent">Assinatura</a></li>
+              <li><a href="http://www.clubpenguin.com/pt/membership" target="_parent">Eu me caguei</a></li>
             </ul>
             <div id="bigscreen">
               <div id="sm_screen_button_pt"></div>

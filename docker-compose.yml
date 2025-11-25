@@ -99,58 +99,6 @@ services:
               "--database-user", "${POSTGRES_USER}", 
               "--database-name", "${POSTGRES_USER}", 
               "--database-password", "${POSTGRES_PASSWORD}"]
-    labels:
-      net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/houdini.png
-  houdini_blizzard:
-    build: ./houdini
-    restart: always
-    networks:
-      - wand
-    ports:
-      - 9875:9875
-      - 10875:10875
-    volumes:
-      - ./houdini:/usr/src/houdini
-    depends_on:
-      - houdini_login
-    links:
-      - db:db
-      - redis:redis
-      - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
-    command: ["-id", "3100", "--name", "blizzard", "--port", "9875", "--lang", "en",
-              "--redis-address", "redis",
-              "--database-address", "db",
-              "--database-user", "${POSTGRES_USER}", 
-              "--database-name", "${POSTGRES_USER}", 
-              "--database-password", "${POSTGRES_PASSWORD}"]
-    labels:
-      net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/houdini.png
-  houdini_glaciar:
-    build: ./houdini
-    restart: always
-    networks:
-      - wand
-    ports:
-      - 9876:9876
-      - 10876:10876
-    volumes:
-      - ./houdini:/usr/src/houdini
-    depends_on:
-      - houdini_login
-    links:
-      - db:db
-      - redis:redis
-      - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
-    command: ["-id", "3101", "--name", "glaciar", "--port", "9876", "--lang", "es",
-              "--redis-address", "redis",
-              "--database-address", "db",
-              "--database-user", "${POSTGRES_USER}", 
-              "--database-name", "${POSTGRES_USER}", 
-              "--database-password", "${POSTGRES_PASSWORD}"]
-    labels:
-      net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/houdini.png
   houdini_avalanche:
     build: ./houdini
     restart: always
@@ -174,33 +122,6 @@ services:
               "--database-user", "${POSTGRES_USER}", 
               "--database-name", "${POSTGRES_USER}", 
               "--database-password", "${POSTGRES_PASSWORD}"]
-    labels:
-      net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/houdini.png
-  houdini_yeti:
-    build: ./houdini
-    restart: always
-    networks:
-      - wand
-    ports:
-      - 9878:9878
-      - 10878:10878
-    volumes:
-      - ./houdini:/usr/src/houdini
-    depends_on:
-      - houdini_login
-    links:
-      - db:db
-      - redis:redis
-      - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "bootstrap.py", "world"]
-    command: ["-id", "3103", "--name", "yeti", "--port", "9878", "--lang", "fr",
-              "--redis-address", "redis",
-              "--database-address", "db",
-              "--database-user", "${POSTGRES_USER}", 
-              "--database-name", "${POSTGRES_USER}", 
-              "--database-password", "${POSTGRES_PASSWORD}"]
-    labels:
-      net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/houdini.png
   dash:
     build: ./dash
     restart: always
@@ -225,36 +146,32 @@ services:
                 "-template", "/usr/src/dash/config.py.template:/usr/src/dash/config.py",
                 "python", "bootstrap.py"]
     command: ["-c", "config.py"]
-    labels:
-      net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/dash.png
-  snowflake:
-    build: ./snowflake
-    restart: always
-    networks:
-      - wand
-    ports:
-      - ${SNOWFLAKE_PORT}:${SNOWFLAKE_PORT}
-    env_file:
-      - .env
-    environment:
-      - POSTGRES_HOST=db:8051
-      - REDIS_HOST=redis
-      - MEDIA_LOCATION=${WEB_VANILLA_MEDIA}
-      - PORT=${SNOWFLAKE_PORT}
-    volumes:
-      - ./snowflake:/usr/src/snowflake
-      - ./.env:/usr/src/snowflake/.env
-    depends_on:
-      - db
-      - redis
-      - dash
-    links:
-      - db:db
-      - redis:redis
-      - houdini_login:login
-    entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "./main.py"]
-    labels:
-      net.unraid.docker.icon: https://raw.githubusercontent.com/solero/wand/refs/heads/master/icons/snowflake.png
+  # snowflake:
+  #   build: ./snowflake
+  #   restart: always
+  #   networks:
+  #     - wand
+  #   ports:
+  #     - ${SNOWFLAKE_PORT}:${SNOWFLAKE_PORT}
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     - POSTGRES_HOST=db:8051
+  #     - REDIS_HOST=redis
+  #     - MEDIA_LOCATION=${WEB_VANILLA_MEDIA}
+  #     - PORT=${SNOWFLAKE_PORT}
+  #   volumes:
+  #     - ./snowflake:/usr/src/snowflake
+  #     - ./.env:/usr/src/snowflake/.env
+  #   depends_on:
+  #     - db
+  #     - redis
+  #     - dash
+  #   links:
+  #     - db:db
+  #     - redis:redis
+  #     - houdini_login:login
+  #   entrypoint: ["dockerize", "-wait", "tcp://login:${GAME_LOGIN_PORT}", "python", "./main.py"]
 
 networks:
   wand:
